@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import products from '../data/products.json';
 import categories from '../data/categories.json';
@@ -10,6 +10,18 @@ const HomePage = () => {
   const featuredProducts = products.slice(0, 8);
   const totalProducts = products.length;
   const totalCategories = categories.length;
+
+  // Shuffle animation between person images
+  const personImages = ['/person.png', '/person2.png'];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex(prev => (prev + 1) % personImages.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
 
   return (
     <div className="min-h-screen bg-cream">
@@ -72,16 +84,21 @@ const HomePage = () => {
             </div>
           </div>
 
-          {/* Right side: Representative / Person Image */}
+          {/* Right side: Representative / Person Image with shuffle animation */}
           <div className="w-full lg:w-[45%] flex justify-center lg:justify-end">
             <div className="relative max-w-sm sm:max-w-md w-full rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-brown-900/30">
-              <img 
-                src="/person.png" 
-                alt="I3 Innovation Representative" 
-                className="w-full h-auto max-h-[480px] object-cover object-top"
-              />
+              {personImages.map((src, idx) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt="I3 Innovation Representative"
+                  className="w-full h-auto max-h-[480px] object-cover object-top absolute inset-0 transition-opacity duration-1000"
+                  style={{ opacity: idx === activeIndex ? 1 : 0, position: idx === 0 ? 'relative' : 'absolute' }}
+                />
+              ))}
             </div>
           </div>
+
         </div>
       </section>
 

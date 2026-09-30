@@ -12,3 +12,6 @@ website/dist/
 # System files
 .DS_Store
 Thumbs.db
+
+# Raw source videos (too large for GitHub)
+videos/downloaded/
