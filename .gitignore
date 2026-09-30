@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+website/node_modules/
+
+# Build output
+dist/
+website/dist/
+
+# Logs
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
