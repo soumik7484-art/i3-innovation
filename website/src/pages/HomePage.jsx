@@ -85,17 +85,26 @@ const HomePage = () => {
           </div>
 
           {/* Right side: Representative / Person Image with shuffle animation */}
-          <div className="w-full lg:w-[45%] flex justify-center lg:justify-end">
+          <div className="w-full lg:w-[45%] flex flex-col items-center lg:items-end">
             <div className="relative max-w-sm sm:max-w-md w-full rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-brown-900/30">
               {personImages.map((src, idx) => (
                 <img
                   key={src}
                   src={src}
-                  alt="I3 Innovation Representative"
+                  alt="Rajib Sarkar - I3 Innovation"
                   className="w-full h-auto max-h-[480px] object-cover object-top absolute inset-0 transition-opacity duration-1000"
                   style={{ opacity: idx === activeIndex ? 1 : 0, position: idx === 0 ? 'relative' : 'absolute' }}
                 />
               ))}
+            </div>
+            {/* Person Name Caption */}
+            <div className="mt-3 max-w-sm sm:max-w-md w-full text-center bg-white/10 backdrop-blur-md border border-white/15 rounded-xl py-2 px-4 shadow-lg">
+              <h3 className="text-white font-semibold text-base sm:text-lg tracking-wide">
+                Rajib Sarkar
+              </h3>
+              <p className="text-white/70 text-xs font-medium uppercase tracking-wider mt-0.5">
+                OWNER
+              </p>
             </div>
           </div>
 

@@ -59,3 +59,18 @@ body {
   object-fit: cover;
   aspect-ratio: 1 / 1;
 }
+
+@keyframes reviewEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-review-entrance {
+  animation: reviewEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

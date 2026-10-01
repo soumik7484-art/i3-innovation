@@ -15,3 +15,12 @@ Thumbs.db
 
 # Raw source videos (too large for GitHub)
 videos/downloaded/
+
+# Environment files
+.env
+*.env
+!.env.example
+website/.env
+
+# Scratch/temp files
+scratch/
