@@ -2,58 +2,61 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
-import filtersData from '../data/filters.json';
 import ProductCard from '../components/ProductCard';
 
 export default function ProductsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
-  const [selectedCategories, setSelectedCategories] = useState(
-    searchParams.get('category') ? [searchParams.get('category')] : []
-  );
+  const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
   
   // Update state when URL params change
   useEffect(() => {
     setSearchQuery(searchParams.get('search') || '');
-    const cat = searchParams.get('category');
-    if (cat && !selectedCategories.includes(cat)) {
-      setSelectedCategories([cat]);
-    }
+    setSelectedCategory(searchParams.get('category') || '');
   }, [searchParams]);
 
   // Handle Search Input
   const handleSearch = (e) => {
     const val = e.target.value;
     setSearchQuery(val);
+    setCurrentPage(1);
+    const newParams = new URLSearchParams(searchParams);
     if (val) {
-      searchParams.set('search', val);
+      newParams.set('search', val);
     } else {
-      searchParams.delete('search');
+      newParams.delete('search');
     }
-    setSearchParams(searchParams);
+    setSearchParams(newParams);
   };
 
-  // Handle Category Filter
+  // Handle Single Category Filter (click selected toggles off, click another switches)
   const toggleCategory = (catName) => {
-    const newCategories = selectedCategories.includes(catName)
-      ? selectedCategories.filter(c => c !== catName)
-      : [...selectedCategories, catName];
-      
-    setSelectedCategories(newCategories);
+    const nextCategory = selectedCategory === catName ? '' : catName;
+    setSelectedCategory(nextCategory);
+    setCurrentPage(1);
     
-    if (newCategories.length > 0) {
-      searchParams.set('category', newCategories[0]);
+    const newParams = new URLSearchParams(searchParams);
+    if (nextCategory) {
+      newParams.set('category', nextCategory);
     } else {
-      searchParams.delete('category');
+      newParams.delete('category');
     }
-    setSearchParams(searchParams);
+    setSearchParams(newParams);
+  };
+
+  const resetCategory = () => {
+    setSelectedCategory('');
+    setCurrentPage(1);
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete('category');
+    setSearchParams(newParams);
   };
   
   // Filtering Logic
   const filteredProducts = useMemo(() => {
     return productsData.filter(product => {
-      // Category filter
-      if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) {
+      // Single Category filter
+      if (selectedCategory && product.category !== selectedCategory) {
         return false;
       }
       
@@ -73,7 +76,7 @@ export default function ProductsPage() {
       
       return true;
     });
-  }, [searchQuery, selectedCategories]);
+  }, [searchQuery, selectedCategory]);
 
   // Sort
   const [sortOption, setSortOption] = useState('Default');
@@ -113,7 +116,7 @@ export default function ProductsPage() {
             <span className="text-gray-700">Products</span>
           </nav>
           <h1 className="text-3xl font-bold text-brown-900">
-            {selectedCategories.length === 1 ? selectedCategories[0] : 'All Products'}
+            {selectedCategory || 'All Products'}
           </h1>
         </div>
 
@@ -142,28 +145,42 @@ export default function ProductsPage() {
             <div className="bg-white p-5 rounded-lg shadow-sm mb-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-brown-800">Categories</h2>
-                {selectedCategories.length > 0 && (
+                {selectedCategory && (
                   <button 
-                    onClick={() => { setSelectedCategories([]); searchParams.delete('category'); setSearchParams(searchParams); }}
-                    className="text-sm text-brown-600 hover:underline"
+                    onClick={resetCategory}
+                    className="text-sm text-brown-600 hover:underline cursor-pointer"
                   >
                     Reset
                   </button>
                 )}
               </div>
               <div className="space-y-3">
-                {categoriesData.map(cat => (
-                  <label key={cat.name} className="flex items-center space-x-3 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      checked={selectedCategories.includes(cat.name)}
-                      onChange={() => toggleCategory(cat.name)}
-                      className="rounded border-gray-300 text-brown-600 focus:ring-brown-500 w-4 h-4"
-                    />
-                    <span className="text-sm text-gray-700 group-hover:text-brown-700 transition-colors">{cat.name}</span>
-                    <span className="text-xs text-gray-400 ml-auto bg-gray-100 px-2 py-0.5 rounded-full">{cat.productCount}</span>
-                  </label>
-                ))}
+                {categoriesData.map(cat => {
+                  const isSelected = selectedCategory === cat.name;
+                  return (
+                    <label
+                      key={cat.name}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleCategory(cat.name);
+                      }}
+                      className="flex items-center space-x-3 cursor-pointer group select-none"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => {}}
+                        className="rounded border-gray-300 text-brown-600 focus:ring-brown-500 w-4 h-4 cursor-pointer"
+                      />
+                      <span className={`text-sm transition-colors ${isSelected ? 'text-brown-900 font-semibold' : 'text-gray-700 group-hover:text-brown-700'}`}>
+                        {cat.name}
+                      </span>
+                      <span className={`text-xs ml-auto px-2 py-0.5 rounded-full ${isSelected ? 'bg-brown-100 text-brown-800 font-medium' : 'bg-gray-100 text-gray-400'}`}>
+                        {cat.productCount}
+                      </span>
+                    </label>
+                  );
+                })}
               </div>
             </div>
             
