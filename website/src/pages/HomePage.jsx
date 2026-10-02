@@ -83,7 +83,15 @@ const HomePage = () => {
               <Link to="/products" className="bg-white text-brown-800 font-medium px-8 py-3.5 rounded-lg hover:bg-gray-50 transition-colors text-center">
                 Explore Products
               </Link>
-              <button className="border border-white/30 text-white px-8 py-3.5 rounded-lg hover:bg-white/10 transition-colors text-center cursor-pointer">
+              <button
+                onClick={() => {
+                  const el = document.getElementById('get-in-touch');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="border border-white/30 text-white px-8 py-3.5 rounded-lg hover:bg-white/10 transition-colors text-center cursor-pointer"
+              >
                 Contact Us
               </button>
             </div>

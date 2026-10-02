@@ -1,19 +1,24 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import company from '../data/company.json';
 import categories from '../data/categories.json';
 import WholesaleInquiryModal from './WholesaleInquiryModal';
 
 const MAPS_URL = 'https://maps.app.goo.gl/UXS6upTKjBuj6mQS9?g_st=aw';
+const PHONE = '916290198676';
+const WHATSAPP_URL = `https://wa.me/${PHONE}?text=${encodeURIComponent('Hello I3 Innovation, I have an inquiry.')}`;
 
 export default function Footer() {
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [inquiryMode, setInquiryMode] = useState('whatsapp');
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   return (
     <footer className="bg-brown-900 text-brown-200">
-      {/* CTA Strip */}
-      <div className="bg-brown-800 border-b border-brown-700/50">
+      {/* CTA Strip — only shown on other pages to prevent duplication on HomePage */}
+      {!isHomePage && (
+        <div className="bg-brown-800 border-b border-brown-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <h3 className="text-lg font-semibold text-white">Ready to place a wholesale order?</h3>
@@ -60,6 +65,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
@@ -125,7 +131,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Actions */}
-          <div>
+          <div id="get-in-touch" className="scroll-mt-24">
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Get in Touch</h4>
             <div className="space-y-3">
               <a href="tel:+916290198676" className="w-full px-4 py-2.5 text-sm font-medium text-brown-800 bg-white rounded-lg hover:bg-brown-50 transition-colors flex items-center justify-center gap-2">
@@ -134,13 +140,15 @@ export default function Footer() {
                 </svg>
                 Call Now
               </a>
-              <button
-                onClick={() => { setInquiryMode('whatsapp'); setInquiryOpen(true); }}
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full px-4 py-2.5 text-sm font-medium text-white border border-brown-500 rounded-lg hover:bg-brown-800 transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
                 WhatsApp
-              </button>
+              </a>
               <button
                 onClick={() => { setInquiryMode('mail'); setInquiryOpen(true); }}
                 className="w-full px-4 py-2.5 text-sm font-medium text-white border border-brown-500 rounded-lg hover:bg-brown-800 transition-colors flex items-center justify-center gap-2 cursor-pointer"
