@@ -46,7 +46,7 @@ export default function ProductCard({ product }) {
           <div className="flex justify-between items-end">
             <div>
               <span className="text-xl font-bold text-brown-900">
-                {product.price || `₹${product.priceRaw}`}
+                {product.price ? `₹${product.price}` : product.priceRaw ? (product.priceRaw.includes('₹') ? product.priceRaw : `₹${product.priceRaw}`) : 'Price on request'}
               </span>
               {product.priceUnit && (
                 <span className="text-sm text-brown-500 ml-1">

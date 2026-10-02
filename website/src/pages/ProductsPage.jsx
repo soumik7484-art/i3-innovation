@@ -83,9 +83,9 @@ export default function ProductsPage() {
   const sortedProducts = useMemo(() => {
     const sorted = [...filteredProducts];
     if (sortOption === 'Price: Low to High') {
-      sorted.sort((a, b) => (a.priceRaw || 0) - (b.priceRaw || 0));
+      sorted.sort((a, b) => (Number(a.price) || 0) - (Number(b.price) || 0));
     } else if (sortOption === 'Price: High to Low') {
-      sorted.sort((a, b) => (b.priceRaw || 0) - (a.priceRaw || 0));
+      sorted.sort((a, b) => (Number(b.price) || 0) - (Number(a.price) || 0));
     } else if (sortOption === 'Name: A-Z') {
       sorted.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
     }
@@ -208,8 +208,11 @@ export default function ProductsPage() {
                 <select
                   id="sort"
                   value={sortOption}
-                  onChange={(e) => setSortOption(e.target.value)}
-                  className="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-brown-500 text-sm bg-gray-50"
+                  onChange={(e) => {
+                    setSortOption(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-brown-500 text-sm bg-gray-50 cursor-pointer"
                 >
                   <option value="Default">Default</option>
                   <option value="Price: Low to High">Price: Low to High</option>
