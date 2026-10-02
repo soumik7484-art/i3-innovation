@@ -8,6 +8,7 @@ import WholesaleInquiryModal from './WholesaleInquiryModal';
 
 const PHONE = '+916290198676';
 const EMAIL = 'i3innovation21@gmail.com';
+const FULL_ADDRESS = 'i3 Innovation, 156/37 B.T. Road, Opposite DORE MI APPARTMENTS, Northern Park Rd, near Geetanjali Apartment, Dunlop, Kolkata, West Bengal 700108';
 
 const STOP_WORDS = new Set([
   'how', 'what', 'where', 'when', 'who', 'why', 'which', 'whose', 'whom',
@@ -228,11 +229,11 @@ export default function Chatbot() {
 
       // 2. Company / Location questions
       if (
-        /where.*(located|address|city|state|factory|office|shop|based)|location|kolkata|west bengal/i.test(lower)
+        /where.*(located|address|city|state|factory|office|shop|based)|location|address|dunlop|bt road|kolkata|west bengal/i.test(lower)
       ) {
         addMessage({
           sender: 'bot',
-          text: `I3 Innovation is based in ${companyData.location}. We are a verified manufacturer and wholesale supplier of uniforms, workwear, and apparel.`,
+          text: FULL_ADDRESS,
           contactButtons: true,
         });
         return;
@@ -244,7 +245,7 @@ export default function Chatbot() {
       ) {
         addMessage({
           sender: 'bot',
-          text: `You can reach I3 Innovation directly:\n• WhatsApp / Call: ${PHONE}\n• Email: ${EMAIL}\n• Location: ${companyData.location}`,
+          text: `You can reach I3 Innovation directly:\n• WhatsApp / Call: ${PHONE}\n• Email: ${EMAIL}\n• Address: ${FULL_ADDRESS}`,
           contactButtons: true,
         });
         return;

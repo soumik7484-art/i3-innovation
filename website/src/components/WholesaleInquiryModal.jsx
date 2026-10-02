@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import categories from '../data/categories.json';
 import products from '../data/products.json';
 import filters from '../data/filters.json';
@@ -189,7 +190,7 @@ export default function WholesaleInquiryModal({ isOpen, onClose, mode = 'whatsap
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
       onClick={handleBackdropClick}
@@ -525,6 +526,7 @@ export default function WholesaleInquiryModal({ isOpen, onClose, mode = 'whatsap
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
