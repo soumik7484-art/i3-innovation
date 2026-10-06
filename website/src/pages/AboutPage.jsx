@@ -34,6 +34,29 @@ const AboutPage = () => {
             </div>
           </section>
 
+          {/* Section: Director / Leadership */}
+          <section className="bg-white rounded-2xl shadow-sm border border-[#E8E1D9] p-8 md:p-12">
+            <h3 className="text-2xl font-bold text-[#3B2C24] mb-8 text-center">Meet Our Director</h3>
+            <div className="flex flex-col items-center text-center max-w-md mx-auto">
+              <div className="relative w-64 sm:w-72 aspect-[3/4] rounded-2xl overflow-hidden shadow-lg border-2 border-[#E8E1D9] bg-[#FAF7F2]">
+                <img
+                  src="/person2.png"
+                  alt="Rajib Sarkar - Director"
+                  className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="mt-5">
+                <h4 className="text-2xl font-bold text-[#3B2C24] tracking-tight">Rajib Sarkar</h4>
+                <p className="text-sm font-semibold uppercase tracking-wider text-[#8C6B52] mt-1">
+                  Director
+                </p>
+                <p className="text-sm text-[#5C4A40] mt-3 leading-relaxed">
+                  Leading I3 Innovation with a vision of premium craftsmanship, certified quality standards, and trusted manufacturing excellence in apparel and uniforms.
+                </p>
+              </div>
+            </div>
+          </section>
+
           {/* Section 2: Offerings */}
           <section>
             <h3 className="text-2xl font-bold text-[#3B2C24] mb-8 text-center">What We Offer</h3>
