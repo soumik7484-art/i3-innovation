@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import products from '../data/products.json';
 import categories from '../data/categories.json';
@@ -16,16 +16,7 @@ const HomePage = () => {
   const totalProducts = products.length;
   const totalCategories = categories.length;
 
-  // Shuffle animation between person images
-  const personImages = ['/person.png', '/person2.png'];
-  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex(prev => (prev + 1) % personImages.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
 
   return (
@@ -49,20 +40,32 @@ const HomePage = () => {
           </svg>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 lg:pb-24 min-h-[85vh] flex flex-col lg:flex-row items-center justify-between gap-12 w-full">
-          <div className="w-full lg:w-[55%]">
-            <img src="/logo.png" alt="I3 Innovation Logo" className="h-12 mb-8 object-contain" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-              {company.name || "I3 Innovation"}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 lg:pb-24 min-h-[85vh] flex flex-col items-center justify-center gap-12 w-full text-center">
+          <div className="w-full max-w-3xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 pt-14 md:pt-16">
+              I3 Inn
+              <span className="relative inline-block">
+                <img
+                  src="/logo.png"
+                  alt="I3 Innovation Logo"
+                  className="absolute left-1/2 -translate-x-1/2 -translate-y-full -top-1 h-8 md:h-10 lg:h-12 object-contain"
+                />
+                o
+              </span>
+              vati
+              <span className="relative inline-block">
+                o
+              </span>
+              n
             </h1>
             <h2 className="text-lg text-brown-200 mb-2 font-medium">
               Wholesale Manufacturer & Supplier
             </h2>
-            <p className="text-white/80 mb-8 max-w-xl">
+            <p className="text-white/80 mb-8 max-w-xl mx-auto text-center">
               Apparel, Uniforms & Workwear — {company.location || "Kolkata, West Bengal"}
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 text-sm text-white/70 mb-10">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/70 mb-10">
               <span className="flex items-center gap-2">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
                 {totalProducts} Products
@@ -79,7 +82,7 @@ const HomePage = () => {
               </span>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
               <Link to="/products" className="bg-white text-brown-800 font-medium px-8 py-3.5 rounded-lg hover:bg-gray-50 transition-colors text-center">
                 Explore Products
               </Link>
@@ -97,29 +100,6 @@ const HomePage = () => {
             </div>
           </div>
 
-          {/* Right side: Representative / Person Image with shuffle animation */}
-          <div className="w-full lg:w-[45%] flex flex-col items-center lg:items-end">
-            <div className="relative max-w-sm sm:max-w-md w-full rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-brown-900/30">
-              {personImages.map((src, idx) => (
-                <img
-                  key={src}
-                  src={src}
-                  alt="Rajib Sarkar - I3 Innovation"
-                  className="w-full h-auto max-h-[480px] object-cover object-top absolute inset-0 transition-opacity duration-1000"
-                  style={{ opacity: idx === activeIndex ? 1 : 0, position: idx === 0 ? 'relative' : 'absolute' }}
-                />
-              ))}
-            </div>
-            {/* Person Name Caption */}
-            <div className="mt-3 max-w-sm sm:max-w-md w-full text-center bg-white/10 backdrop-blur-md border border-white/15 rounded-xl py-2 px-4 shadow-lg">
-              <h3 className="text-white font-semibold text-base sm:text-lg tracking-wide">
-                Rajib Sarkar
-              </h3>
-              <p className="text-white/70 text-xs font-medium uppercase tracking-wider mt-0.5">
-                OWNER
-              </p>
-            </div>
-          </div>
 
         </div>
       </section>
