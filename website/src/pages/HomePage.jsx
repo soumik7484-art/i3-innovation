@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import products from '../data/products.json';
 import categories from '../data/categories.json';
@@ -17,8 +17,6 @@ const HomePage = () => {
   const totalCategories = categories.length;
 
 
-
-
   return (
     <div className="min-h-screen bg-cream">
       {/* 1. HERO SECTION */}
@@ -29,8 +27,8 @@ const HomePage = () => {
           style={{ backgroundImage: "url('/office-bg.jpg')" }}
         />
 
-        {/* Existing Brown Overlay/Tint for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-brown-950/90 via-brown-900/85 to-brown-900/60" />
+        {/* Balanced dark overlay for center text readability */}
+        <div className="absolute inset-0 bg-black/60 backdrop-brightness-75" />
 
         {/* Subtle diagonal decorative element */}
         <div className="absolute inset-0 opacity-15 pointer-events-none">
@@ -40,28 +38,16 @@ const HomePage = () => {
           </svg>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 lg:pb-24 min-h-[85vh] flex flex-col items-center justify-center gap-12 w-full text-center">
-          <div className="w-full max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 pt-14 md:pt-16">
-              I3 Inn
-              <span className="relative inline-block">
-                <img
-                  src="/logo.png"
-                  alt="I3 Innovation Logo"
-                  className="absolute left-1/2 -translate-x-1/2 -translate-y-full -top-1 h-8 md:h-10 lg:h-12 object-contain"
-                />
-                o
-              </span>
-              vati
-              <span className="relative inline-block">
-                o
-              </span>
-              n
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 lg:pb-24 min-h-[85vh] flex flex-col items-center justify-center text-center w-full">
+          <div className="w-full flex flex-col items-center">
+            <img src="/logo.png" alt="I3 Innovation Logo" className="h-14 mb-8 object-contain" />
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight">
+              {company.name || "I3 Innovation"}
             </h1>
-            <h2 className="text-lg text-brown-200 mb-2 font-medium">
+            <h2 className="text-xl md:text-2xl text-brown-200 mb-3 font-medium">
               Wholesale Manufacturer & Supplier
             </h2>
-            <p className="text-white/80 mb-8 max-w-xl mx-auto text-center">
+            <p className="text-white/80 mb-8 max-w-2xl text-base md:text-lg">
               Apparel, Uniforms & Workwear — {company.location || "Kolkata, West Bengal"}
             </p>
 
@@ -83,7 +69,7 @@ const HomePage = () => {
             </div>
 
             <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/products" className="bg-white text-brown-800 font-medium px-8 py-3.5 rounded-lg hover:bg-gray-50 transition-colors text-center">
+              <Link to="/products" className="bg-white text-brown-800 font-medium px-8 py-3.5 rounded-lg hover:bg-gray-50 transition-colors text-center shadow-md">
                 Explore Products
               </Link>
               <button
@@ -93,14 +79,12 @@ const HomePage = () => {
                     el.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className="border border-white/30 text-white px-8 py-3.5 rounded-lg hover:bg-white/10 transition-colors text-center cursor-pointer"
+                className="border border-white/40 text-white px-8 py-3.5 rounded-lg hover:bg-white/10 transition-colors text-center cursor-pointer shadow-md"
               >
                 Contact Us
               </button>
             </div>
           </div>
-
-
         </div>
       </section>
 
