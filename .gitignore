@@ -24,3 +24,4 @@ website/.env
 
 # Scratch/temp files
 scratch/
+scratch_*.png
