@@ -1,6 +1,18 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-const APPS_SCRIPT_URL = import.meta.env.VITE_REVIEWS_API_URL || '';
+const RAW_APPS_SCRIPT_URL = import.meta.env.VITE_REVIEWS_API_URL || '';
+
+function isValidAppsScriptUrl(url) {
+  if (!url || typeof url !== 'string') return false;
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'https:' && parsed.hostname === 'script.google.com';
+  } catch {
+    return false;
+  }
+}
+
+const APPS_SCRIPT_URL = isValidAppsScriptUrl(RAW_APPS_SCRIPT_URL) ? RAW_APPS_SCRIPT_URL : '';
 const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT_G5wEXgUgzC_XU6wUUcbHq3pwPWEucgvPn8Vdbh760xXLXnOFHoI7KcyKdCl7amE_m7HUX68zmkim/pub?output=csv';
 const COOLDOWN_SECONDS = 60;
 const COOLDOWN_STORAGE_KEY = 'i3_reviews_last_submit_ts';
@@ -577,7 +589,9 @@ export default function ReviewsPage() {
             }
           }
         } catch (apiErr) {
-          console.warn('[Reviews] Apps Script GET failed, attempting CSV fallback:', apiErr);
+          if (import.meta.env.DEV) {
+            console.warn('[Reviews] Apps Script GET failed, attempting CSV fallback:', apiErr);
+          }
         }
       }
 
@@ -590,7 +604,9 @@ export default function ReviewsPage() {
             loaded = parseCSV(text).reverse();
           }
         } catch (csvErr) {
-          console.warn('[Reviews] Fallback CSV fetch failed:', csvErr);
+          if (import.meta.env.DEV) {
+            console.warn('[Reviews] Fallback CSV fetch failed:', csvErr);
+          }
         }
       }
 
@@ -682,7 +698,9 @@ export default function ReviewsPage() {
 
       return { success: true };
     } catch (err) {
-      console.error('Review submission error:', err);
+      if (import.meta.env.DEV) {
+        console.error('Review submission error:', err);
+      }
       throw err;
     } finally {
       setIsSubmitting(false);

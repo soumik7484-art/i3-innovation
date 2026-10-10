@@ -110,9 +110,10 @@ function doGet(e) {
       reviews: reviews
     });
   } catch (err) {
+    console.error('Apps Script doGet Error: ' + err.toString());
     return jsonResponse({
       success: false,
-      message: 'Failed to retrieve reviews: ' + err.toString()
+      message: 'Failed to retrieve reviews.'
     });
   }
 }
@@ -160,11 +161,11 @@ function doPost(e) {
       return jsonResponse({ success: false, message: 'Review must not exceed 1000 characters' });
     }
 
-    // Basic sanitization: strip any HTML tags
-    name = name.replace(/<[^>]*>?/gm, '');
-    review = review.replace(/<[^>]*>?/gm, '');
-    location = location.replace(/<[^>]*>?/gm, '');
-    product = product.replace(/<[^>]*>?/gm, '');
+    // Basic sanitization and formula injection protection
+    name = sanitizeCell(name);
+    review = sanitizeCell(review);
+    location = sanitizeCell(location);
+    product = sanitizeCell(product);
 
     // 4. Save to Google Sheet
     var sheet = getOrCreateReviewsSheet();
@@ -194,11 +195,23 @@ function doPost(e) {
       }
     });
   } catch (err) {
+    console.error('Apps Script doPost Error: ' + err.toString());
     return jsonResponse({
       success: false,
-      message: 'Server error: ' + err.toString()
+      message: 'Server error: Request could not be processed.'
     });
   }
+}
+
+/**
+ * Sanitize cell values: strip HTML tags and prevent CSV/Spreadsheet formula injection
+ */
+function sanitizeCell(value) {
+  var str = String(value || '').trim().replace(/<[^>]*>?/gm, '');
+  if (/^[\=\+\-\@\t\r]/.test(str)) {
+    return "'" + str;
+  }
+  return str;
 }
 
 /**

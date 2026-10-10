@@ -169,8 +169,11 @@ export default function WholesaleInquiryModal({ isOpen, onClose, mode = 'whatsap
     if (step === STEPS.PRODUCT && !selectedProductId) {
       newErrors.product = 'Please select a product.';
     }
-    if (step === STEPS.QUANTITY && (!quantity || Number(quantity) < 1)) {
-      newErrors.quantity = 'Please enter a valid quantity.';
+    if (step === STEPS.QUANTITY) {
+      const qNum = Number(quantity);
+      if (!quantity || isNaN(qNum) || qNum < 1 || qNum > 1000000) {
+        newErrors.quantity = 'Please enter a valid quantity (1 - 1,000,000).';
+      }
     }
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -354,8 +357,9 @@ export default function WholesaleInquiryModal({ isOpen, onClose, mode = 'whatsap
                   id="inquiry-quantity"
                   type="number"
                   min="1"
+                  max="1000000"
                   value={quantity}
-                  onChange={(e) => { setQuantity(e.target.value); setErrors({}); }}
+                  onChange={(e) => { setQuantity(e.target.value.slice(0, 7)); setErrors({}); }}
                   placeholder="Enter quantity"
                   className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-brown-800 placeholder-brown-400 focus:outline-none focus:ring-2 transition-colors ${
                     errors.quantity ? 'border-red-300 focus:ring-red-200' : 'border-brown-200 focus:ring-brown-300 focus:border-brown-400'
@@ -407,6 +411,7 @@ export default function WholesaleInquiryModal({ isOpen, onClose, mode = 'whatsap
                 <input
                   type="text"
                   value={customFabric}
+                  maxLength={100}
                   onChange={(e) => setCustomFabric(e.target.value)}
                   placeholder="Enter your preferred fabric…"
                   className="w-full px-4 py-3 bg-white border border-brown-200 rounded-lg text-sm text-brown-800 placeholder-brown-400 focus:outline-none focus:ring-2 focus:ring-brown-300 focus:border-brown-400 transition-colors"
@@ -425,6 +430,7 @@ export default function WholesaleInquiryModal({ isOpen, onClose, mode = 'whatsap
               <textarea
                 id="inquiry-message"
                 value={message}
+                maxLength={1000}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Sizes, colors, customization, delivery timeline, special packaging…"
                 rows={4}

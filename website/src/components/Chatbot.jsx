@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
@@ -722,6 +722,7 @@ export default function Chatbot() {
               ref={inputRef}
               type="text"
               value={inputQuery}
+              maxLength={200}
               onChange={(e) => setInputQuery(e.target.value)}
               placeholder="Ask about products, fabrics, MOQ..."
               className="flex-1 bg-brown-50/70 border border-brown-200 rounded-xl px-3.5 py-2 text-xs text-brown-900 placeholder-brown-400 focus:outline-none focus:ring-1 focus:ring-brown-600 focus:border-brown-600 transition-colors"

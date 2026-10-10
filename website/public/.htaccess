@@ -1,3 +1,4 @@
+# Enable SPA routing
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -6,3 +7,39 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
 </IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+  # Prevent MIME type sniffing
+  Header set X-Content-Type-Options "nosniff"
+
+  # Prevent clickjacking / frame embedding
+  Header set X-Frame-Options "DENY"
+
+  # Control referrer information
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Restrict browser feature permissions
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # Enforce HTTPS (HSTS)
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+
+  # Content Security Policy (aligned with Vercel configuration)
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://5.imimg.com https://*.imimg.com https://placehold.co; media-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://docs.google.com; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me mailto:; frame-ancestors 'none';"
+</IfModule>
+
+# Disable Directory Browsing
+Options -Indexes
+
+# Block access to hidden files and sensitive dotfiles (.env, .git, etc.)
+<FilesMatch "^\.">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+

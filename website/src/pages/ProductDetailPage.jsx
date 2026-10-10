@@ -219,7 +219,7 @@ export default function ProductDetailPage() {
                 </div>
               )}
 
-              {product.brochureUrl && (
+              {product.brochureUrl && /^https?:\/\//i.test(product.brochureUrl) && (
                 <div className="mt-6 pt-6 border-t border-gray-100">
                   <a 
                     href={product.brochureUrl} 

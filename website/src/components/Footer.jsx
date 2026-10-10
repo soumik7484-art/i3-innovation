@@ -8,6 +8,15 @@ const MAPS_URL = 'https://maps.app.goo.gl/UXS6upTKjBuj6mQS9?g_st=aw';
 const PHONE = '916290198676';
 const WHATSAPP_URL = `https://wa.me/${PHONE}?text=${encodeURIComponent('Hello I3 Innovation, I have an inquiry.')}`;
 
+const categoryDisplayNames = {
+  'School Uniform': 'School Uniforms',
+  'Mens T-shirts': 'Men’s T-Shirts',
+  "Men's T-shirt": 'Men’s T-Shirts',
+  'Rain Coat': 'Raincoats',
+  'Mens Promotional T Shirt': 'Men’s Promotional T-Shirts',
+  'Corporate Blazers': 'Corporate Blazers',
+};
+
 export default function Footer() {
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [inquiryMode, setInquiryMode] = useState('whatsapp');
@@ -126,7 +135,7 @@ export default function Footer() {
                       to={`/products?category=${encodeURIComponent(cat.name)}`}
                       className="text-sm text-emerald-100/80 hover:text-white transition-colors"
                     >
-                      {cat.name === 'Mens T-shirts' ? 'Men’s T-shirts' : cat.name}
+                      {categoryDisplayNames[cat.name] || cat.name}
                     </Link>
                   </li>
                 ))}
