@@ -117,16 +117,19 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Categories</h3>
             <ul className="space-y-2.5">
-              {categories.slice(0, 6).map((cat) => (
-                <li key={cat.name}>
-                  <Link
-                    to={`/products?category=${encodeURIComponent(cat.name)}`}
-                    className="text-sm text-emerald-100/80 hover:text-white transition-colors"
-                  >
-                    {cat.name}
-                  </Link>
-                </li>
-              ))}
+              {categories
+                .slice(0, 6)
+                .filter((cat) => cat.name !== "Men's T-shirt")
+                .map((cat) => (
+                  <li key={cat.name}>
+                    <Link
+                      to={`/products?category=${encodeURIComponent(cat.name)}`}
+                      className="text-sm text-emerald-100/80 hover:text-white transition-colors"
+                    >
+                      {cat.name === 'Mens T-shirts' ? 'Men’s T-shirts' : cat.name}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
 
