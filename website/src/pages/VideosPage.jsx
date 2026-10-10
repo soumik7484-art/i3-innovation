@@ -36,8 +36,8 @@ const videos = rawVideos.map((entry) => {
     const num = entry.filename.split('_')[0];
     return {
       num,
-      category: entry.category,
-      title: entry.title,
+      category: entry.category.replace(/\bMens\b/g, "Men's"),
+      title: entry.title.replace(/\bMens\b/g, "Men's"),
       filename: entry.filename,
       src: `/videos/${entry.filename}`,
     };
@@ -47,8 +47,8 @@ const videos = rawVideos.map((entry) => {
   const withoutExt = filename.replace('.mp4', '');
   const parts = withoutExt.split('_');
   const num = parts[0];
-  const category = parts[1] || '';
-  const title = parts.slice(2).join(' ') || category;
+  const category = (parts[1] || '').replace(/\bMens\b/g, "Men's");
+  const title = (parts.slice(2).join(' ') || category).replace(/\bMens\b/g, "Men's");
   return {
     num,
     category,

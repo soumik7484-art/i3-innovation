@@ -11,9 +11,11 @@ const WHATSAPP_URL = `https://wa.me/${PHONE}?text=${encodeURIComponent('Hello I3
 const categoryDisplayNames = {
   'School Uniform': 'School Uniforms',
   'Mens T-shirts': 'Men’s T-Shirts',
+  "Men's T-shirts": 'Men’s T-Shirts',
   "Men's T-shirt": 'Men’s T-Shirts',
   'Rain Coat': 'Raincoats',
   'Mens Promotional T Shirt': 'Men’s Promotional T-Shirts',
+  "Men's Promotional T Shirt": 'Men’s Promotional T-Shirts',
   'Corporate Blazers': 'Corporate Blazers',
 };
 

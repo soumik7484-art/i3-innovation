@@ -94,7 +94,7 @@ const staticReviews = [
   { name: 'علي', location: 'Saudi Arabia', rating: 5, date: '18-Mar-2025', product: 'Round Neck T Shirt', tags: [], text: '' },
   { name: 'ANIL KUMAR SING', location: 'Balasore, Odisha', rating: 5, date: '02-Apr-2025', product: 'Men Sports Shorts', tags: [], text: 'Very good' },
   { name: 'Jahid', location: 'Bongoan, West Bengal', rating: 5, date: '27-Feb-2025', product: 'Track Pant', tags: [], text: '' },
-  { name: 'Mozahid Gani', location: 'Tiruppur, Tamil Nadu', rating: 5, date: '27-Feb-2025', product: 'Cotton Black Track Pant For Mens, Solid', tags: [], text: '' },
+  { name: 'Mozahid Gani', location: 'Tiruppur, Tamil Nadu', rating: 5, date: '27-Feb-2025', product: "Cotton Black Track Pant For Men's, Solid", tags: [], text: '' },
   { name: 'Pathan Ji', location: 'Howrah, West Bengal', rating: 5, date: '20-Feb-2025', product: 'Men Coat', tags: [], text: '' },
   { name: 'Kizer Global Resources Private Limit', location: 'New Delhi, Delhi', rating: 5, date: '20-Jan-2025', product: 'Round Neck T Shirt', tags: [], text: '' },
   { name: 'Sujay Konra', location: 'Bardhaman, West Bengal', rating: 5, date: '12-Jan-2025', product: 'Men Tracksuit', tags: [], text: '' },
