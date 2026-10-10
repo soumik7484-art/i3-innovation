@@ -24,7 +24,7 @@ export default function Footer() {
             <h3 className="text-lg font-semibold text-[#485320]">Ready to place a wholesale order?</h3>
             <p className="text-sm text-[#485320]/80 mt-0.5">Get in touch with our team for bulk pricing and availability.</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-2.5 sm:gap-3">
             <button
               onClick={() => { setInquiryMode('whatsapp'); setInquiryOpen(true); }}
               className="px-5 py-2.5 text-sm font-medium border border-[#485320]/30 text-[#485320] rounded-lg hover:bg-[#485320] hover:text-white transition-colors flex items-center gap-2 cursor-pointer"
